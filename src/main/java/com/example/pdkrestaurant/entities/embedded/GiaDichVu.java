@@ -22,10 +22,7 @@ public class GiaDichVu {
 
 
     private LoaiBan loaiBan;//Loại bàn
-
-
     private int soChoNgoi;//Số chỗ ngồi của bàn
-
     private double gia;
 
     public GiaDichVu(LoaiBan loaiBan, int soChoNgoi, double gia) {

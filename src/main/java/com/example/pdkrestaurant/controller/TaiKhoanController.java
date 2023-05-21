@@ -45,7 +45,7 @@ public class TaiKhoanController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Get All USER Paging")
     @GetMapping("allPaging")
-    public ResponseEntity<Page<TaiKhoan>> allPaging(@RequestParam(defaultValue = "") String SS,
+    public ResponseEntity<Page<TaiKhoan>> allPaging(@RequestParam(defaultValue = "") String search,
                                                     @RequestParam(defaultValue = "0") int page){
         return new ResponseEntity<>(userService.filter(search,page,size,sort,column), HttpStatus.OK);
     }

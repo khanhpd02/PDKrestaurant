@@ -32,19 +32,12 @@ public class DatBan {
 
     // email người đặt chỗ
     private String email;
-
-
-    private List<ThongTinDatBan> thongTinDatBans = new ArrayList<>();//Thông tin đặt bàn(LoaiBan, Số lượng bàn)
-
+    private List<ThongTinDatBan> thongTinDatBans = new ArrayList<>();
     // Thời gian Đạặt bàn
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm")
     private Date thoiGian;
-
     // Lưu cuarua khách đi đặt bàn
     private String note;
-
-    // lấy từ enum trạng thái đặt bàn
-    private String trangThaiDatBan;
-
+    private String trangThaiDatBan;// lấy từ enum trạng thái đặt bàn
     private boolean trangThai = true;
 }

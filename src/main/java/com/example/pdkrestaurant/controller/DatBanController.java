@@ -43,7 +43,7 @@ public class DatBanController {
             @Valid @RequestBody ThongTinDatBanDto dto){
         return new ResponseEntity<>(datBanService.addThongTinDatBan(id,dto), HttpStatus.OK);
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/getall")
     public ResponseEntity<Page<DatBan>> getallpaging(@RequestParam(defaultValue = "") String search,
                                                       @RequestParam(defaultValue = "0") int page){

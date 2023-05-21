@@ -27,19 +27,12 @@ public class DichVu {
     @Id
     private String id;
 
-    // mã dịch vụ không được trùng
-    private String maDichVu;
-
-
+    private String maDichVu; // mã dịch vụ không được trùng
     private String tenDichVu;
-
-    // nội dung là html
-    private String noiDung;
+    private String noiDung;// nội dung của dịch Vụ
 
     // Giá phụ thuộc vào Số Ngồi và loại bàn của khách
-
     private List<GiaDichVu> giaDichVus = new ArrayList<>();
-
     private boolean trangThai = true;
 
 

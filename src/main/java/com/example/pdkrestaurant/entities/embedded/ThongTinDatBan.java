@@ -19,13 +19,15 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 @NoArgsConstructor
 
 public class ThongTinDatBan {
+
+    private LoaiBan loaiBan ;//Loại bàn
+    private int soLuongBanCanDat; // Số lượng bàn khách cần đặt
+
+
+
+
     public ThongTinDatBan(LoaiBan loaiBan, int soLuongBanCanDat) {
         this.loaiBan = loaiBan;
         this.soLuongBanCanDat = soLuongBanCanDat;
     }
-
-    private LoaiBan loaiBan ;//Loại bàn
-
-
-    private int soLuongBanCanDat; // Số lượng bàn khách cần đặt
 }
