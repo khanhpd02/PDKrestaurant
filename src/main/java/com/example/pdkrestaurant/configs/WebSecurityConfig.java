@@ -36,7 +36,7 @@ public class WebSecurityConfig {
 
     private final List<String> pattern = Arrays.asList(
             "/pdkrestaurant/user/create",
-            "/pdkrestaurant/login/**",
+            "/pdkrestaurant/**",
             "pdkrestaurant/loaiban"
 
     );

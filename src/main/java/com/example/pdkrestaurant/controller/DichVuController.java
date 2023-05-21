@@ -34,7 +34,7 @@ public class DichVuController {
     public ResponseEntity<DichVu> create(@Valid @RequestBody DichVuDto dto){
         return new ResponseEntity<>(dichVuService.create(dto), HttpStatus.OK);
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/getall")
     public ResponseEntity<Page<DichVu>> getallpaging(@RequestParam(defaultValue = "") String search,
                                                      @RequestParam(defaultValue = "0") int page){
@@ -58,7 +58,7 @@ public class DichVuController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/update-giaDichVu/{id}")
     public ResponseEntity<DichVu> updatethongtindatcho(@PathVariable String id,
                                                        @Valid @RequestBody GiaDichVuDto dto

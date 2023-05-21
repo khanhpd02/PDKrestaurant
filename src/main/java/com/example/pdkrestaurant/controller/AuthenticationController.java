@@ -5,6 +5,7 @@ import com.example.pdkrestaurant.dtos.AccountDto;
 import com.example.pdkrestaurant.dtos.TokenDetails;
 import com.example.pdkrestaurant.dtos.user.RegisterDto;
 import com.example.pdkrestaurant.entities.TaiKhoan;
+import com.example.pdkrestaurant.exceptions.InternalServerErrorException;
 import com.example.pdkrestaurant.exceptions.InvalidException;
 import com.example.pdkrestaurant.exceptions.UserNotFoundAuthenticationException;
 import com.example.pdkrestaurant.securities.CustomUserDetailsService;
@@ -35,7 +36,7 @@ import java.util.Date;
  */
 @Slf4j
 @RestController
-@RequestMapping("/pdkrestaurant/login")
+@RequestMapping("/pdkrestaurant")
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
 
@@ -60,7 +61,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(userService.signup(registerDto), HttpStatus.OK);
     }
     @ApiOperation(value = "login form (username, password), avatar null")
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<TokenDetails> login(@Valid @RequestBody AccountDto dto) {
         UserAuthenticationToken authenticationToken = new UserAuthenticationToken(
                 dto.getUsername(),
@@ -70,7 +71,7 @@ public class AuthenticationController {
         try {
             authenticationManager.authenticate(authenticationToken);
         } catch (UserNotFoundAuthenticationException | BadCredentialsException ex) {
-            throw new InvalidException(ex.getMessage());
+            throw new InternalServerErrorException(ex.getMessage());
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -80,38 +81,6 @@ public class AuthenticationController {
         log.info(String.format("User %s login at %s", dto.getUsername(), new Date()));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    /*@ApiOperation(value = "login google (Access Token), lấy avatar google")
-    @PostMapping("/google")
-    public ResponseEntity<TokenDetails> loginGoogle(@RequestHeader(name = "accessToken") String accessToken) {
-        //String urlRequest = googleVerifyUrl + accessToken;
-        String email;
-        String avatar;
-        try {
-            ResponseEntity<HashMap> responseEntity = restTemplate.exchange(urlRequest, HttpMethod.GET, null, HashMap.class);
-            HashMap<String, String> map = responseEntity.getBody();
-            email = map.get("email");
-            avatar = map.get("picture");
-        } catch (Exception ex) {
-            throw new InvalidException("Token không hợp lệ");
-        }
-        UserAuthenticationToken authenticationToken = new UserAuthenticationToken(
-                email,
-                null,
-                false
-        );
-        try {
-            authenticationManager.authenticate(authenticationToken);
-        } catch (UserNotFoundAuthenticationException | BadCredentialsException ex) {
-            throw new InvalidException(ex.getMessage());
-        }
-        final JwtUserDetails userDetails = customUserDetailsService
-                .loadUserByUsername(email);
-        final TokenDetails result = jwtTokenUtils.getTokenDetails(userDetails, avatar);
-        log.info(String.format("User %s login via google at %s", email, new Date()));
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-*/
 
     @GetMapping("/hello")
     @PreAuthorize("hasRole('ADMIN')")

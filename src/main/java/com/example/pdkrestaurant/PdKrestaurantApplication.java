@@ -18,19 +18,13 @@ public class PdKrestaurantApplication implements CommandLineRunner {
         SpringApplication.run(PdKrestaurantApplication.class, args);
     }
 
-
     @Override
     public void run(String... args) throws Exception {
         if(userRepository.count()==0){
-            TaiKhoan taiKhoan1 = new TaiKhoan("user01", "user01@gmail.com", "123", "012346789",
-                    Arrays.asList(EnumRole.ROLE_USER.name()));
-            TaiKhoan taiKhoan2 = new TaiKhoan("admin01", "admin01@gmail.com", "123", "012346789",
+            // Tạo acount Admin có sẵn
+            TaiKhoan taiKhoan = new TaiKhoan("admin01", "admin01@gmail.com", "1", "012346789",
                     Arrays.asList(EnumRole.ROLE_ADMIN.name()));
-            TaiKhoan taiKhoan3 = new TaiKhoan("adminuser01", "adminuser01@gmail.com", "123", "012346789",
-                    Arrays.asList(EnumRole.ROLE_ADMIN.name(),EnumRole.ROLE_USER.name() ));
-            userRepository.save(taiKhoan1);
-            userRepository.save(taiKhoan2);
-            userRepository.save(taiKhoan3);
+            userRepository.save(taiKhoan);
         }
 
     }

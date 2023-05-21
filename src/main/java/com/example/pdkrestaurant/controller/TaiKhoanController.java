@@ -30,7 +30,7 @@ public class TaiKhoanController {
     //Lấy Tài khoản có sẵn trong PetLoveApplicaton để create
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Create user")
-    @PostMapping("/create")
+    @PostMapping("/createAdmin")
     public ResponseEntity<TaiKhoan> create(@Valid @RequestBody SigupDto dto,
                                              Principal principal) {
         return new ResponseEntity<>(userService.create(dto, principal), HttpStatus.OK);
@@ -45,7 +45,7 @@ public class TaiKhoanController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Get All USER Paging")
     @GetMapping("allPaging")
-    public ResponseEntity<Page<TaiKhoan>> allPaging(@RequestParam(defaultValue = "") String search,
+    public ResponseEntity<Page<TaiKhoan>> allPaging(@RequestParam(defaultValue = "") String SS,
                                                     @RequestParam(defaultValue = "0") int page){
         return new ResponseEntity<>(userService.filter(search,page,size,sort,column), HttpStatus.OK);
     }

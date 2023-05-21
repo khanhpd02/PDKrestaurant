@@ -69,6 +69,9 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtils.isEmpty(dto.getPassword())) {
             throw new InvalidException("Nhập password đi!");
         }
+        if (ObjectUtils.isEmpty(dto.getDienThoai())) {
+            throw new InvalidException("Sdt ko dc để trống!");
+        }
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new InvalidException(String.format("Email đã tồn tại, vui lòng nhập email khác",
                     dto.getEmail()));
@@ -78,7 +81,7 @@ public class UserServiceImpl implements UserService {
             taiKhoan.setDienThoai(dto.getDienThoai());
             taiKhoan.setEmail(dto.getEmail());
             taiKhoan.setPassword(dto.getPassword());
-            taiKhoan.setRoles(Arrays.asList(EnumRole.ROLE_USER.name()));
+            taiKhoan.setRoles(Arrays.asList(EnumRole.ROLE_ADMIN.name()));
 
         return userRepository.save(taiKhoan);
 
@@ -125,8 +128,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public TaiKhoan signup(RegisterDto registerDto) {
         TaiKhoan taiKhoan = new TaiKhoan();
+        if (ObjectUtils.isEmpty(registerDto.getEmail())) {
+            throw new InvalidException("Email không được để trống");
+        }
+        if (ObjectUtils.isEmpty(registerDto.getPassword())) {
+            throw new InvalidException("Mật khẩu không được để trống");
+        }
+        if (ObjectUtils.isEmpty(registerDto.getName())) {
+            throw new InvalidException("Name không được để trống");
+        }
+        if (ObjectUtils.isEmpty(registerDto.getDienThoai())) {
+            throw new InvalidException("So dien thoai không được để trống");
+        }
         if(userRepository.existsByEmail(registerDto.getEmail()))
             throw new InvalidException(String.format("User có email %s đã tồn tại", registerDto.getEmail()));
+
         taiKhoan.setName(registerDto.getName());
         taiKhoan.setEmail(registerDto.getEmail());
         taiKhoan.setRoles(Arrays.asList(EnumRole.ROLE_USER.name()));
