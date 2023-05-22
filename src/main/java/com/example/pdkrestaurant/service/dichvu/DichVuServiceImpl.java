@@ -110,7 +110,6 @@ public class DichVuServiceImpl implements DichVuService {
             dichVuRepository.save(dichVu);
 
 
-
         return dichVu;
     }
 
@@ -138,9 +137,6 @@ public class DichVuServiceImpl implements DichVuService {
         }
         dichVu.getGiaDichVus().add(giaDichVu);
         dichVuRepository.save(dichVu);
-
-
-
         return dichVu;
     }
 
@@ -165,7 +161,6 @@ public class DichVuServiceImpl implements DichVuService {
 
             }
         }
-
 
         dichVu.get().setMaDichVu(dto.getMaDichVu());
         dichVu.get().setTenDichVu(dto.getTenDichVu());

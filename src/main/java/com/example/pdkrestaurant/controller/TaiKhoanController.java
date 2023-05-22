@@ -49,7 +49,6 @@ public class TaiKhoanController {
                                                     @RequestParam(defaultValue = "0") int page){
         return new ResponseEntity<>(userService.filter(search,page,size,sort,column), HttpStatus.OK);
     }
-
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ApiOperation(value = "Get All USER")
     @GetMapping("/all")
@@ -57,7 +56,6 @@ public class TaiKhoanController {
 
         return userService.finAll();
     }
-
     @PostMapping("/change-status")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> changeStatus(@RequestParam String id){

@@ -30,8 +30,6 @@ public class DatBanController {
     private final String sort = "asc";
     private final String search = "true";
     private final String column = "email";
-
-
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/create")
     public ResponseEntity<DatBan> create(@Valid @RequestBody DatBanDto dto){
@@ -49,35 +47,27 @@ public class DatBanController {
                                                       @RequestParam(defaultValue = "0") int page){
         return new ResponseEntity<>(datBanService.filter(search,page,size,sort,column),   HttpStatus.OK);
     }
-
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping("/update/{id}")
     public ResponseEntity<DatBan> update(@PathVariable String id,
-                                           @Valid @RequestBody UpdateDatBanDto dto
-                                         ) {
+                                         @Valid @RequestBody UpdateDatBanDto dto) {
         return new ResponseEntity<>(datBanService.update(id,dto), HttpStatus.OK);
     }
-
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping("/update-thongTinDatBan/{id}")
     public ResponseEntity<DatBan> updatethongtindatcho(@PathVariable String id,
-                                         @Valid @RequestBody ThongTinDatBanDto dto
-    ) {
+                                         @Valid @RequestBody ThongTinDatBanDto dto) {
         return new ResponseEntity<>(datBanService.updateThongTinDatCho(id,dto), HttpStatus.OK);
     }
-
-
     @PutMapping("/udt-trang-thai/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<DatBan> updateTrangThai(@PathVariable String id,
-                                                  @RequestParam int statusNumber) {
+    public ResponseEntity<DatBan> updateTrangThai(@PathVariable String id, @RequestParam int statusNumber) {
 //        khac 1,2,3 : HUY
 //        1 : DANG_THUC_HIEN
 //        2 : DAT_BAN
 //        3 : HOAN_THANH
         return new ResponseEntity<>(datBanService.updateTrangThai(id, statusNumber), HttpStatus.OK);
     }
-
     @PostMapping("/change-status")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> changeStatus(@RequestParam String id) {

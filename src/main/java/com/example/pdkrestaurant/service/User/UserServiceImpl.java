@@ -50,12 +50,10 @@ public class UserServiceImpl implements UserService {
     public void deleteById(String id) {
         userRepository.deleteById(id);
     }
-
     @Override
     public TaiKhoan getUserByEmail(String email) {
         return null;
     }
-
     @Override
     public TaiKhoan create(SigupDto dto, Principal principal) {
         TaiKhoan taiKhoan = new TaiKhoan();
@@ -75,7 +73,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new InvalidException(String.format("Email đã tồn tại, vui lòng nhập email khác",
                     dto.getEmail()));
-
         }
             taiKhoan.setName(dto.getName());
             taiKhoan.setDienThoai(dto.getDienThoai());
@@ -86,12 +83,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(taiKhoan);
 
     }
-
-
-
     @Override
     public TaiKhoan update(String id, UpdateUserDto dto) {
-
         TaiKhoan taiKhoan = userRepository.findById(id).orElse(null);
         if (taiKhoan==null)
             throw new NotFoundException("Id này ko tồn tại");
@@ -102,8 +95,6 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtils.isEmpty(dto.getPassword())) {
             throw new InvalidException("Mật khẩu không được để trống");
         }
-
-
         taiKhoan.setName(dto.getName());
         //taiKhoan.setEmail(dto.getEmail());
         taiKhoan.setDienThoai(dto.getDienThoai());
@@ -111,20 +102,14 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(taiKhoan);
     }
-
-
-
-
     @Override
     public TaiKhoan changeStatus(String id) {
-
         Optional<TaiKhoan> taiKhoan = userRepository.findById(id);
         if(!taiKhoan.isPresent())
             throw new NotFoundException(String.format("Tài khoản có id %s không tồn tại", id));
         taiKhoan.get().setTrangThai(!taiKhoan.get().isTrangThai());
         return userRepository.save(taiKhoan.get());
     }
-
     @Override
     public TaiKhoan signup(RegisterDto registerDto) {
         TaiKhoan taiKhoan = new TaiKhoan();
@@ -142,7 +127,6 @@ public class UserServiceImpl implements UserService {
         }
         if(userRepository.existsByEmail(registerDto.getEmail()))
             throw new InvalidException(String.format("User có email %s đã tồn tại", registerDto.getEmail()));
-
         taiKhoan.setName(registerDto.getName());
         taiKhoan.setEmail(registerDto.getEmail());
         taiKhoan.setRoles(Arrays.asList(EnumRole.ROLE_USER.name()));

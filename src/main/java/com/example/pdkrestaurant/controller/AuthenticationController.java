@@ -39,14 +39,10 @@ import java.util.Date;
 @RequestMapping("/pdkrestaurant")
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
-
     private final CustomUserDetailsService customUserDetailsService;
-
     private final JwtTokenUtils jwtTokenUtils;
-
     //@Value("${google.verifyUrl}")
    // private String googleVerifyUrl;
-
     private final RestTemplate restTemplate = new RestTemplate();
     private final UserService userService;
     public AuthenticationController(AuthenticationManager authenticationManager, CustomUserDetailsService customUserDetailsService,

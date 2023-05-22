@@ -27,8 +27,6 @@ public class DichVuController {
     private final String search = "true";
     private final String column = "maDichVu";
     private final DichVuService dichVuService;
-
-
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<DichVu> create(@Valid @RequestBody DichVuDto dto){
@@ -46,8 +44,6 @@ public class DichVuController {
                                          @Valid @RequestBody GiaDichVuDto dto){
         return new ResponseEntity<>(dichVuService.addGiaDichVu(id,dto), HttpStatus.OK);
     }
-
-
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<DichVu> update(@PathVariable String id,
@@ -56,8 +52,6 @@ public class DichVuController {
         //update mã dịch vụ tên dịch vụ và nội dung
         return new ResponseEntity<>(dichVuService.update(id,dto), HttpStatus.OK);
     }
-
-
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/update-giaDichVu/{id}")
     public ResponseEntity<DichVu> updatethongtindatcho(@PathVariable String id,
@@ -65,7 +59,6 @@ public class DichVuController {
     ) {
         return new ResponseEntity<>(dichVuService.updateGiaDichVu(id,dto), HttpStatus.OK);
     }
-
     @PostMapping("/change-status")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> changeStatus(@RequestParam String id) {

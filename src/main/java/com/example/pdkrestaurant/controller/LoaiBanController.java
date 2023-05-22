@@ -25,7 +25,6 @@ public class LoaiBanController {
     private final String sort = "asc";
     private final String search = "true";
     private final String column = "maLoaiBan";
-
     @PreAuthorize("hasAnyRole ('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<LoaiBan> create(@Valid @RequestBody LoaiBanDto dto){

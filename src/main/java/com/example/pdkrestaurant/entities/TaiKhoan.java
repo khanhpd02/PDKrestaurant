@@ -26,20 +26,13 @@ import java.util.List;
 public class TaiKhoan {
     @Id
     private String id;
-
     private String name;
-
     private String email;
-
     @JsonIgnore
     private String password;
-
     private String dienThoai;
-
     private List<String> roles = new ArrayList<>();
-
     private boolean trangThai = true;
-
     public TaiKhoan(String name, String email, String password, String dienThoai, List<String> roles) {
         this.name = name;
         this.email = email;

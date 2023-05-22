@@ -18,30 +18,24 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class LoaiBanServiceImpl implements LoaiBanService{
-
     private final LoaiBanRepository   loaiBanRepository;
     @Override
     public Page<LoaiBan> filter(String search, int page, int size, String sort, String column) {
         Pageable pageable = PageUtils.createPageable(page, size, sort, column);
         return loaiBanRepository.findByMaLoaiBanContainingOrTenLoaiBanContainingAllIgnoreCase(search,search, pageable);
     }
-
     @Override
     public List<LoaiBan> finAll() {
         return null;
     }
-
     @Override
     public LoaiBan getLoaiBanByMaLoaiBan(String id) {
         return loaiBanRepository.findLoaiBanByMaLoaiBan(id);
     }
-
-
     @Override
     public void deleteById(String id) {
 
     }
-
     @Override
     public LoaiBan create(LoaiBanDto dto) {
         LoaiBan loaiBan=new LoaiBan();
@@ -54,13 +48,11 @@ public class LoaiBanServiceImpl implements LoaiBanService{
         if (loaiBanRepository.existsByMaLoaiBan(dto.getMaLoaiBan())) {
             throw new InvalidException(String.format("Mã loại bàn đã tồn tại, vui lòng nhập khác:",
                     dto.getMaLoaiBan()));
-
         }
         loaiBan.setMaLoaiBan(dto.getMaLoaiBan());
         loaiBan.setTenLoaiBan(dto.getTenLoaiBan());
         loaiBan.setTrangThai(true);
         loaiBanRepository.save(loaiBan);
-
         return loaiBan;
     }
 

@@ -33,19 +33,15 @@ public class DatBanServiceImpl implements DatBanService {
         Pageable pageable = PageUtils.createPageable(page, size, sort, column);
         return datBanRepository.findByEmailContainingOrIdContainingAllIgnoreCase(search,search, pageable);
     }
-
     @Override
     public List<DatBan> finAll() {
         return null;
     }
-
     @Override
     public DatBan findbyId(String id) {
         return datBanRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException(String.format("ko có mã đặt bàn này",id)));
     }
-
-
     @Override
     public void deleteById(String id) {
 
@@ -53,9 +49,7 @@ public class DatBanServiceImpl implements DatBanService {
 
     @Override
     public DatBan create(DatBanDto dto) {
-
         DatBan datBan=new DatBan();
-
         if (ObjectUtils.isEmpty(dto.getEmail())) {
             throw new InvalidException("Email Không được để trống");
         }
@@ -68,26 +62,10 @@ public class DatBanServiceImpl implements DatBanService {
         if (ObjectUtils.isEmpty(dto.getSoLuong())) {
             throw new InvalidException("Số lượng không được để trống");
         }
-
         LoaiBan loaiBan=loaiBanRepository.findLoaiBanByMaLoaiBan(dto.getMaLoaiBan());
         if (loaiBan==null) throw new InvalidException("Không có loại bàn!!");
 //        List<ThongTinDatBan> thongTinDatBans = new ArrayList<>();
         ThongTinDatBan thongTinDatBan = new ThongTinDatBan(loaiBan, dto.getSoLuong());
-//        thongTinDatBans.add(thongTinDatBan);
-
-
-
-        // thi t lay ma loai ban roi truyen vao casi thong tin dat ban
-
-//        List<ThongTinDatBan> thongTinDatBans = new ArrayList<>();
-//        ThongTinDatBan thongTinDatBan = new ThongTinDatBan(loaiBan,dto.getSoLuong());
-//        thongTinDatBans.add(thongTinDatBan );
-
-//No id property found on class class com.example.pdkrestaurant.entities.embedded.ThongTinDatBan
-        // Loi nay la do m chua tao cai dat ban nen k co id de no lay
-        // m phai save dat ban truoc
-        // sau do moi them thong tin dat ban vo
-//        datBan.setThongTinDatBans(thongTinDatBans);
         datBan.setEmail(dto.getEmail());
         datBan.setNote(dto.getNote());
         datBan.setThoiGian(dto.getThoigian());
@@ -110,24 +88,7 @@ public class DatBanServiceImpl implements DatBanService {
         if (ObjectUtils.isEmpty(dto.getSoLuong())) {
             throw new InvalidException("Số lượng bàn Không được để trống");
         }
-//        List<ThongTinDatBan> thongTinDatBans = new ArrayList<>();
 
-
-        // ... Điền thông tin cho đối tượng DatBan
-        /*LoaiBan loaiBanCanTim = loaiBan; // Giá trị cần kiểm tra
-        int co=0;
-        for (ThongTinDatBan tt : datBan.getThongTinDatBans()) {
-            if (tt.getLoaiBan().getMaLoaiBan() == loaiBan.getMaLoaiBan()) { // Kiểm tra thuộc tính loaiBan của từng đối tượng
-                tt.setSoLuongBanCanDat(dto.getSoLuong()+tt.getSoLuongBanCanDat());
-                int vitri =datBan.getThongTinDatBans().indexOf(tt);
-                int tong= datBan.getThongTinDatBans().get(vitri).getSoLuongBanCanDat()+dto.getSoLuong();
-                datBan.getThongTinDatBans().set(vitri,new ThongTinDatBan(loaiBan,tong));
-                datBanRepository.save(datBan);
-                co=co+1;
-            }
-        }*/
-//        if (co==0)
-//        {
         int co=0;
         for (int o = 0;o<datBan.getThongTinDatBans().size();o++){
             if(Objects.equals(datBan.getThongTinDatBans().get(o).getLoaiBan().getMaLoaiBan(), loaiBan.getMaLoaiBan())){
@@ -142,22 +103,6 @@ public class DatBanServiceImpl implements DatBanService {
             datBan.getThongTinDatBans().add(thongTinDatBan);
             datBanRepository.save(datBan);
         }
-
-
-//        ThongTinDatBan thongTinDatBan = new ThongTinDatBan(loaiBan, dto.getSoLuong());
-//         if(datBan.getThongTinDatBans().contains(thongTinDatBan)!=true){
-//             int vitri=datBan.getThongTinDatBans().indexOf(thongTinDatBan);
-//             int tong= datBan.getThongTinDatBans().get(vitri).getSoLuongBanCanDat()+dto.getSoLuong();
-//             datBan.getThongTinDatBans().set(vitri,new ThongTinDatBan(loaiBan,tong));
-//             datBanRepository.save(datBan);
-//         }else {
-////      thongTinDatBans.add(thongTinDatBan);
-//             datBan.getThongTinDatBans().add(thongTinDatBan);
-//             datBanRepository.save(datBan);
-//         }
-
-
-
         return datBan;
     }
 
@@ -172,8 +117,6 @@ public class DatBanServiceImpl implements DatBanService {
         if (ObjectUtils.isEmpty(dto.getThoigian())) {
             throw new InvalidException("Thời gian không được để trống");
         }
-
-
         datBan.get().setEmail(dto.getEmail());
         datBan.get().setNote(dto.getNote());
         datBan.get().setThoiGian(dto.getThoigian());
@@ -192,24 +135,6 @@ public class DatBanServiceImpl implements DatBanService {
         if (ObjectUtils.isEmpty(dto.getSoLuong())) {
             throw new InvalidException("Số lượng bàn Không được để trống");
         }
-//        List<ThongTinDatBan> thongTinDatBans = new ArrayList<>();
-
-
-        // ... Điền thông tin cho đối tượng DatBan
-        /*LoaiBan loaiBanCanTim = loaiBan; // Giá trị cần kiểm tra
-        int co=0;
-        for (ThongTinDatBan tt : datBan.getThongTinDatBans()) {
-            if (tt.getLoaiBan().getMaLoaiBan() == loaiBan.getMaLoaiBan()) { // Kiểm tra thuộc tính loaiBan của từng đối tượng
-                tt.setSoLuongBanCanDat(dto.getSoLuong()+tt.getSoLuongBanCanDat());
-                int vitri =datBan.getThongTinDatBans().indexOf(tt);
-                int tong= datBan.getThongTinDatBans().get(vitri).getSoLuongBanCanDat()+dto.getSoLuong();
-                datBan.getThongTinDatBans().set(vitri,new ThongTinDatBan(loaiBan,tong));
-                datBanRepository.save(datBan);
-                co=co+1;
-            }
-        }*/
-//        if (co==0)
-//        {
         int co=0;
         for (int o = 0;o<datBan.getThongTinDatBans().size();o++){
             if(Objects.equals(datBan.getThongTinDatBans().get(o).getLoaiBan().getMaLoaiBan(), loaiBan.getMaLoaiBan())){
@@ -235,7 +160,6 @@ public class DatBanServiceImpl implements DatBanService {
         datBan.get().setTrangThai(!datBan.get().isTrangThai());
         return datBanRepository.save(datBan.get());
     }
-
     @Override
     public DatBan updateTrangThai(String id, int statusNumber) {
         Optional<DatBan> datBan = datBanRepository.findById(id);
